@@ -32,7 +32,7 @@ axios.get('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
           card_imgs = cards[i].image
           dealt_cards = dealt_cards + cards[i].value.toLowerCase() + ' of ' + cards[i].suit.toLowerCase() + card_emoji[cards[i].suit]
         }
-        dealt_cards_str = dealt_cards_str + dealt_cards + ' #cards #houseofcards #Suits #spades #hearts #clubs #poker #pokeronline #deckofcards #cardgames'
+        dealt_cards_str = dealt_cards_str + dealt_cards + ' #cards #houseofcards #Suits #spades #hearts #clubs #poker #pokeronline #deckofcards #cardgames #MondayVibes  #TuesdayThoughts #WednesdayWisdom #ThursdayThoughts #FridayFeeling #weekendvibes #WeekendKaVaar'
 
         downloadImage(card_imgs).then(() => {
           const img_path = Path.resolve(__dirname, 'images', 'card1.jpg')

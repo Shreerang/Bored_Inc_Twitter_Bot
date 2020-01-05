@@ -29,7 +29,7 @@ axios.get(url)
             }
         }
         for (let j=0; j < doodles_arr.length; j++) {
-            let tweet_msg = "Today's #GoogleDoodle celebrates " + doodles_arr[j].share_text + " 🎉\n" + "Find out more at - https://www.google.com/doodles/" + doodles_arr[j].name
+            let tweet_msg = "Today's #GoogleDoodle celebrates " + doodles_arr[j].share_text + " 🎉\n" + "Find out more at - https://www.google.com/doodles/" + doodles_arr[j].name + " #MondayVibes  #TuesdayThoughts #WednesdayWisdom #ThursdayThoughts #FridayFeeling #weekendvibes #WeekendKaVaar"
 
             downloadImage(doodles_arr[j].alternate_url, j).then(() => {
                 const img_path = Path.resolve(__dirname, 'images', 'doodle_'+j+'.jpg')
