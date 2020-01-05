@@ -14,7 +14,7 @@ const current_date = (Number(new Date().getMonth())+1) + '/' + new Date().getDat
 
 axios.get('http://numbersapi.com/' + current_date + '/date')
   .then(function (response) {
-    let status_msg = response.data + ' #OnThisDay 📅 #MondayVibes  #TuesdayThoughts #WednesdayWisdom #ThursdayThoughts #FridayFeeling #weekendvibes #WeekendKaVaar #date #Trivia 👌🏻#numbers #interestingfacts 🤔 #Facts 💭'
+    let status_msg = response.data + '\n#OnThisDay 📅 #MondayVibes  #TuesdayThoughts #WednesdayWisdom #ThursdayThoughts #FridayFeeling #weekendvibes #WeekendKaVaar #date #Trivia 👌🏻#numbers #interestingfacts 🤔 #Facts 💭'
     T.post('statuses/update', { status: status_msg.substring(0, 280) }, function(err, data, response) {
         // console.log(data)
     })

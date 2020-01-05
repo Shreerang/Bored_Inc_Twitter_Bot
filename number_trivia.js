@@ -18,7 +18,7 @@ const day = Math.floor(diff / oneDay);
 
 axios.get('http://numbersapi.com/' + day)
   .then(function (response) {
-    let status_msg = 'Day ' + day + '📌: ' + response.data + ' 🧐💯 #MondayVibes  #TuesdayThoughts #WednesdayWisdom #ThursdayThoughts #FridayFeeling #weekendvibes #WeekendKaVaar'
+    let status_msg = 'Day ' + day + '📌: ' + response.data + ' 🧐💯\n#MondayVibes  #TuesdayThoughts #WednesdayWisdom #ThursdayThoughts #FridayFeeling #weekendvibes #WeekendKaVaar'
     T.post('statuses/update', { status: status_msg.substring(0, 280) }, function(err, data, response) {
         // console.log(data)
     })
