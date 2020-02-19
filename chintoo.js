@@ -8,7 +8,7 @@ const puppeteer = require('puppeteer');
 puppeteer.launch().then(async browser => {
     const page = await browser.newPage();
 
-    await page.goto('http://chintoo.com/comic/chintu-105/');
+    await page.goto('http://chintoo.com/comics-strips/');
 
     const imgs = await page.$$eval('.entry-comic img', imgs => imgs.map(img => img.getAttribute('src')));
 
