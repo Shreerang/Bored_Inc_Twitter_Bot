@@ -10,8 +10,7 @@ const T = new Twit({
   timeout_ms: 60 * 1000
 });
 
-// const current_date =
-//   Number(new Date().getMonth()) + 1 + "/" + new Date().getDate();
+const days = getDaysInMonth(new Date.getMonth() + 1, new Date.getFullYear());
 
 const flags = {
   CAD: "🇨🇦",
@@ -65,12 +64,12 @@ axios
       ) {
         list_string =
           list_string +
-          flags["USD"] +
-          "1 USD --> " +
+          //   flags["USD"] +
+          flags[rate] +
+          "1 USD today is " +
           response.data.rates[rate].toFixed(2) +
           " " +
           rate +
-          flags[rate] +
           "\n";
       }
     }
@@ -88,3 +87,23 @@ axios
   .catch(function(error) {
     console.log(error);
   });
+
+// function getDaysInMonth(month, year) {
+//   var date = new Date(year, month, 1);
+//   var days = [];
+//   while (date.getMonth() === month) {
+//     if (date.getDay() === 0 || date.getDay() === 6) {
+//       date.setDate(date.getDate() + 1);
+//     } else {
+//       days.push(
+//         new Date().getFullYear() +
+//           "-" +
+//           (new Date().getMonth() + 1) +
+//           "-" +
+//           new Date().getDate()
+//       );
+//       date.setDate(date.getDate() + 1);
+//     }
+//   }
+//   return days;
+// }
