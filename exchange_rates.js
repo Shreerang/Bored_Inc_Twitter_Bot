@@ -10,7 +10,15 @@ const T = new Twit({
   timeout_ms: 60 * 1000
 });
 
-const days = getDaysInMonth(new Date.getMonth() + 1, new Date.getFullYear());
+let yesterday = new Date();
+yesterday.setDate(yesterday.getDate() - 1);
+
+const current_date =
+  yesterday.getFullYear() +
+  "-" +
+  (yesterday.getMonth() + 1) +
+  "-" +
+  yesterday.getDate();
 
 const flags = {
   CAD: "🇨🇦",
@@ -48,10 +56,18 @@ const flags = {
   USD: "🇺🇸"
 };
 
+function getPercentageChange(oldNumber, newNumber) {
+  let decreaseValue = oldNumber - newNumber;
+  return (decreaseValue / oldNumber) * 100;
+}
+
 axios
   .get("https://api.exchangeratesapi.io/latest?base=USD")
   .then(function(response) {
     let list_string = "Today's currency exchange rates: \n\n";
+    let yesterday_rate = "";
+    let promises = [];
+    let current_rates = [];
     for (var rate in response.data.rates) {
       if (
         rate === "INR" ||
@@ -62,20 +78,42 @@ axios
         rate === "AUD" ||
         rate === "CNY"
       ) {
+        yesterday_rate_url =
+          "https://api.exchangeratesapi.io/" +
+          current_date +
+          "?base=USD&symbols=" +
+          rate;
+        promises.push(axios.get(yesterday_rate_url));
+        current_rates.push({
+          currency: rate,
+          current_rate: response.data.rates[rate].toFixed(2)
+        });
+      }
+    }
+    axios.all(promises).then(function(results) {
+      results.forEach(function(response, index) {
+        let percent_change = getPercentageChange(
+          current_rates[index].current_rate,
+          response.data.rates[Object.keys(response.data.rates)[0]].toFixed(2)
+        );
         list_string =
           list_string +
           //   flags["USD"] +
           flags[rate] +
-          "1 USD today is " +
-          response.data.rates[rate].toFixed(2) +
+          "1 USD is " +
+          current_rates[index].current_rate +
           " " +
-          rate +
+          current_rates[index].currency +
+          (percent_change > 0 ? " down by " : " up by ") +
+          percent_change +
+          "% compared to yesterday" +
           "\n";
-      }
-    }
-    list_string =
-      list_string +
-      "\n#currency #exchange #rates #dollar #dollars #currencytrading";
+      });
+      list_string =
+        list_string +
+        "\n#currency #exchange #rates #dollar #dollars #currencytrading";
+      console.log(list_string);
+    });
     T.post("statuses/update", { status: list_string }, function(
       err,
       data,
@@ -87,23 +125,3 @@ axios
   .catch(function(error) {
     console.log(error);
   });
-
-// function getDaysInMonth(month, year) {
-//   var date = new Date(year, month, 1);
-//   var days = [];
-//   while (date.getMonth() === month) {
-//     if (date.getDay() === 0 || date.getDay() === 6) {
-//       date.setDate(date.getDate() + 1);
-//     } else {
-//       days.push(
-//         new Date().getFullYear() +
-//           "-" +
-//           (new Date().getMonth() + 1) +
-//           "-" +
-//           new Date().getDate()
-//       );
-//       date.setDate(date.getDate() + 1);
-//     }
-//   }
-//   return days;
-// }
