@@ -1,6 +1,7 @@
 require("dotenv").config();
 const Twit = require("twit");
 const axios = require("axios");
+const tweet = require("./thread.js");
 
 const T = new Twit({
   consumer_key: process.env.consumer_key,
@@ -9,6 +10,26 @@ const T = new Twit({
   access_token_secret: process.env.access_token_secret,
   timeout_ms: 60 * 1000
 });
+
+const ria_link = "https://mbsy.co/cSszq";
+const remitly_link = "http://remit.ly/9d5mua";
+
+const ria_remit_msg =
+  "Now is a great time to send money to your loved ones using @RiaFinancial for your #Remittance today - " +
+  ria_link +
+  " Complete your first #moneytransfer and Ria will send you a $10 @amazon #GiftCard to thank you for choosing Ria!";
+
+const remitly_remint_msg =
+  "Now is a great time to send money to your loved ones using @remitly for your #Remittance today - " +
+  remitly_link +
+  "Remitly usually offers first time customers a higher exchange rate so that you can send more money home!";
+
+let today =
+  new Date().getFullYear() +
+  "-" +
+  (new Date().getMonth() + 1) +
+  "-" +
+  new Date().getDate();
 
 let yesterday = new Date();
 yesterday.setDate(yesterday.getDate() - 1);
@@ -58,13 +79,14 @@ const flags = {
 
 function getPercentageChange(oldNumber, newNumber) {
   let decreaseValue = oldNumber - newNumber;
-  return (decreaseValue / oldNumber) * 100;
+  return ((decreaseValue / oldNumber) * 100).toFixed(2);
 }
 
 axios
-  .get("https://api.exchangeratesapi.io/latest?base=USD")
+  .get("https://api.exchangeratesapi.io/" + today + "?base=USD")
   .then(function(response) {
-    let list_string = "Today's currency exchange rates: \n\n";
+    let list_string =
+      "Today's #currency #exchangerates in comparision to yesterday against the US #dollar: \n";
     let yesterday_rate = "";
     let promises = [];
     let current_rates = [];
@@ -98,28 +120,26 @@ axios
         );
         list_string =
           list_string +
-          //   flags["USD"] +
-          flags[rate] +
-          "1 USD is " +
+          flags[current_rates[index].currency] +
+          " is " +
           current_rates[index].current_rate +
           " " +
           current_rates[index].currency +
-          (percent_change > 0 ? " down by " : " up by ") +
-          percent_change +
-          "% compared to yesterday" +
+          (percent_change > 0 ? "🔻by " : "🔺by ") +
+          Math.abs(percent_change) +
+          "%" +
           "\n";
       });
-      list_string =
-        list_string +
-        "\n#currency #exchange #rates #dollar #dollars #currencytrading";
+      list_string = list_string + "#dollars #currencytrading";
       console.log(list_string);
-    });
-    T.post("statuses/update", { status: list_string }, function(
-      err,
-      data,
-      response
-    ) {
-      // console.log(data)
+      // T.post("statuses/update", { status: list_string }, function(
+      //   err,
+      //   data,
+      //   response
+      // ) {
+      //   // console.log(data)
+      // });
+      tweet(list_string, [ria_remit_msg, remitly_remint_msg]);
     });
   })
   .catch(function(error) {
