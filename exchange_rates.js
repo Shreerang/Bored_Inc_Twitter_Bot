@@ -89,7 +89,6 @@ if (new Date().getDay() !== 0 || new Date().getDay() !== 6) {
     .then(function(response) {
       let list_string =
         "Today's #currency #exchangerates in comparison to yesterday against the US #dollar: \n";
-      let yesterday_rate = "";
       let promises = [];
       let current_rates = [];
       for (var rate in response.data.rates) {
