@@ -14,11 +14,10 @@ const T = new Twit({
 const ria_link = "https://mbsy.co/cSszq";
 const remitly_link = "http://remit.ly/9d5mua";
 
-const ria_remit_msg =
+let ria_remit_msg =
   "Now is a great time to send money to your loved ones using @RiaFinancial for your #Remittance today - " +
   ria_link +
-  " Complete your first #moneytransfer and Ria will send you a $10 @amazon #GiftCard to thank you for choosing Ria!\n#dollars #currencytrading #news #money #market";
-
+  " Complete your first #moneytransfer and Ria will send you a $10 @amazon #GiftCard to thank you for choosing Ria!\n#dollars #currencytrading #news #money";
 const remitly_remint_msg =
   "Now is a great time to send money to your loved ones using @remitly for your #Remittance today - " +
   remitly_link +
@@ -131,7 +130,7 @@ if (new Date().getDay() !== 0 || new Date().getDay() !== 6) {
             "%" +
             "\n";
         });
-        list_string = list_string + "#forex #forextrader #forextrading";
+        list_string = list_string + "#forex #forextrader";
         tweet(list_string, [ria_remit_msg, remitly_remint_msg]);
       });
     })
