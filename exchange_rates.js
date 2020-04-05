@@ -8,7 +8,7 @@ const T = new Twit({
   consumer_secret: process.env.consumer_secret,
   access_token: process.env.access_token,
   access_token_secret: process.env.access_token_secret,
-  timeout_ms: 60 * 1000
+  timeout_ms: 60 * 1000,
 });
 
 const ria_link = "https://mbsy.co/cSszq";
@@ -73,7 +73,7 @@ const flags = {
   ILS: "🇮🇱",
   KRW: "🇰🇷",
   PLN: "🇵🇱",
-  USD: "🇺🇸"
+  USD: "🇺🇸",
 };
 
 function getPercentageChange(oldNumber, newNumber) {
@@ -85,7 +85,7 @@ function getPercentageChange(oldNumber, newNumber) {
 if (new Date().getDay() !== 0 || new Date().getDay() !== 6) {
   axios
     .get("https://api.exchangeratesapi.io/" + today + "?base=USD")
-    .then(function(response) {
+    .then(function (response) {
       let list_string =
         "Today's #currency #exchangerates in comparison to yesterday against the US #dollar: \n";
       let promises = [];
@@ -108,12 +108,12 @@ if (new Date().getDay() !== 0 || new Date().getDay() !== 6) {
           promises.push(axios.get(yesterday_rate_url));
           current_rates.push({
             currency: rate,
-            current_rate: response.data.rates[rate].toFixed(2)
+            current_rate: response.data.rates[rate].toFixed(2),
           });
         }
       }
-      axios.all(promises).then(function(results) {
-        results.forEach(function(response, index) {
+      axios.all(promises).then(function (results) {
+        results.forEach(function (response, index) {
           let percent_change = getPercentageChange(
             current_rates[index].current_rate,
             response.data.rates[Object.keys(response.data.rates)[0]].toFixed(2)
@@ -130,11 +130,11 @@ if (new Date().getDay() !== 0 || new Date().getDay() !== 6) {
             "%" +
             "\n";
         });
-        list_string = list_string + "#forex #forextrader";
+        list_string = list_string + "#forex";
         tweet(list_string, [ria_remit_msg, remitly_remint_msg]);
       });
     })
-    .catch(function(error) {
+    .catch(function (error) {
       console.log(error);
     });
 }
