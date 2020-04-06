@@ -82,7 +82,7 @@ function getPercentageChange(oldNumber, newNumber) {
 }
 
 // Publish this tweet only if it is a week day. Don't tweet on Saturday and Sunday
-if (new Date().getDay() !== 0 || new Date().getDay() !== 6) {
+if (new Date().getDay() !== 0 && new Date().getDay() !== 6) {
   axios
     .get("https://api.exchangeratesapi.io/" + today + "?base=USD")
     .then(function (response) {
