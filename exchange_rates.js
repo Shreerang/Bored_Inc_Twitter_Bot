@@ -13,15 +13,22 @@ const T = new Twit({
 
 const ria_link = "https://mbsy.co/cSszq";
 const remitly_link = "http://remit.ly/9d5mua";
+const transfer_wise_link = "https://transferwise.com/invite/u/913ff2";
 
 let ria_remit_msg =
   "Now is a great time to send money to your loved ones using @RiaFinancial for your #Remittance today - " +
   ria_link +
   " Complete your first #moneytransfer and Ria will send you a $10 @amazon #GiftCard to thank you for choosing Ria!\n#dollars #currencytrading #news #money";
+
 const remitly_remint_msg =
   "Now is a great time to send money to your loved ones using @remitly for your #Remittance today - " +
   remitly_link +
   "Remitly usually offers first time customers a higher exchange rate so that you can send more money home!\n#dollars #currencytrading #news #money #market";
+
+const transfer_wise_msg =
+  "Now is a great time to send money to your loved ones using @TransferWise for your #Remittance today - " +
+  remitly_link +
+  "TransferWise offers a free international transfer for over $300 so you don't have to pay a transfer fee!\n#dollars #currencytrading #news #money #market #forextrader";
 
 let today =
   new Date().getFullYear() +
@@ -125,13 +132,17 @@ if (new Date().getDay() !== 0 && new Date().getDay() !== 6) {
             current_rates[index].current_rate +
             " " +
             current_rates[index].currency +
-            (percent_change > 0 ? "🔻by " : "🔺by ") +
+            (percent_change > 0 ? "🔺by " : "🔻by ") +
             Math.abs(percent_change) +
             "%" +
             "\n";
         });
         list_string = list_string + "#forex";
-        tweet(list_string, [ria_remit_msg, remitly_remint_msg]);
+        tweet(list_string, [
+          ria_remit_msg,
+          remitly_remint_msg,
+          transfer_wise_msg,
+        ]);
       });
     })
     .catch(function (error) {

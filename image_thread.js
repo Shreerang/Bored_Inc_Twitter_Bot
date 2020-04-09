@@ -35,7 +35,9 @@ const tweet = (first, subsequent) => {
     .then((top_tweet) => {
       console.log(`${top_tweet[0].text} tweeted!`);
       let starting_id = top_tweet[0].id_str; // Get top-line tweet ID...
-      tweet_crafter(subsequent, starting_id);
+      if (subsequent) {
+        tweet_crafter(subsequent, starting_id);
+      }
     })
     .catch((err) => console.log(err));
 };
