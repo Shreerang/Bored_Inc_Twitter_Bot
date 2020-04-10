@@ -27,7 +27,7 @@ const remitly_remint_msg =
 
 const transfer_wise_msg =
   "Now is a great time to send money to your loved ones using @TransferWise for your #Remittance today - " +
-  remitly_link +
+  transfer_wise_link +
   "TransferWise offers a free international transfer for over $300 so you don't have to pay a transfer fee!\n#dollars #currencytrading #news #money #market #forextrader";
 
 let today =
