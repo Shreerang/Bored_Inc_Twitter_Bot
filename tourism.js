@@ -72,7 +72,7 @@ axios
     tourism_img_credit =
       "#" +
       tourism_countries[current_hour].replace(/ +/g, "") +
-      " photograph by: " +
+      " #tourism photograph by: " +
       (response.data.user.twitter_username
         ? "@" + response.data.user.twitter_username
         : response.data.user.first_name + " " + response.data.user.last_name) +
@@ -85,7 +85,7 @@ axios
       "\n" +
       tourism_img_credit +
       "\n" +
-      " #Photograph #photography #Photos #photo #Explore #wallpaper #tourism ";
+      " #Photograph #photography #Photos #photo #Explore #wallpaper ";
     day_based_hashtag[new Date().getDay()];
     downloadImage(tourism_img).then(() => {
       const img_path = Path.resolve(__dirname, "images", "img.jpg");
