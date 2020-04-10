@@ -76,7 +76,7 @@ axios
       (response.data.user.twitter_username
         ? "@" + response.data.user.twitter_username
         : response.data.user.first_name + " " + response.data.user.last_name) +
-      (response.data.user
+      (response.data.user.portfolio_url
         ? ". You can follow the photographer at " +
           response.data.user.portfolio_url
         : ".");
