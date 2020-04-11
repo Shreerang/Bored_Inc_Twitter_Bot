@@ -132,7 +132,7 @@ if (new Date().getDay() !== 0 && new Date().getDay() !== 6) {
             current_rates[index].current_rate +
             " " +
             current_rates[index].currency +
-            (percent_change > 0 ? "🔺by " : "🔻by ") +
+            (percent_change >= 0 ? "🔺by " : "🔻by ") +
             Math.abs(percent_change) +
             "%" +
             "\n";
