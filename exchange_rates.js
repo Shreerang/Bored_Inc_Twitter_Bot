@@ -93,31 +93,28 @@ if (new Date().getDay() !== 0 && new Date().getDay() !== 6) {
   axios
     .get("https://api.exchangeratesapi.io/" + today + "?base=USD")
     .then(function (response) {
-      let list_string =
-        "Today's #currency #exchangerates in comparison to yesterday against the US #dollar: \n";
+      let list_arr = [];
+      let first_list = "";
+      let second_list = "";
+      let third_list = "";
+      let fourth_list = "";
+      let tweet_txt =
+        "Today's #currency #exchangerates in comparison to yesterday against the US #dollar:\n";
+      let sec_tweet_txt = "#forex #ForexMarket #Currency";
+      let ter_tweet = "🤑💰💱💹";
       let promises = [];
       let current_rates = [];
-      for (var rate in response.data.rates) {
-        if (
-          rate === "INR" ||
-          rate === "CNY" ||
-          rate === "MXN" ||
-          rate === "PHP" ||
-          rate === "EUR" ||
-          rate === "CAD" ||
-          rate === "JPY"
-        ) {
-          yesterday_rate_url =
-            "https://api.exchangeratesapi.io/" +
-            current_date +
-            "?base=USD&symbols=" +
-            rate;
-          promises.push(axios.get(yesterday_rate_url));
-          current_rates.push({
-            currency: rate,
-            current_rate: response.data.rates[rate].toFixed(2),
-          });
-        }
+      for (var rate in flags) {
+        yesterday_rate_url =
+          "https://api.exchangeratesapi.io/" +
+          current_date +
+          "?base=USD&symbols=" +
+          rate;
+        promises.push(axios.get(yesterday_rate_url));
+        current_rates.push({
+          currency: rate,
+          current_rate: response.data.rates[rate].toFixed(2),
+        });
       }
       axios.all(promises).then(function (results) {
         results.forEach(function (response, index) {
@@ -125,20 +122,39 @@ if (new Date().getDay() !== 0 && new Date().getDay() !== 6) {
             current_rates[index].current_rate,
             response.data.rates[Object.keys(response.data.rates)[0]].toFixed(2)
           );
-          list_string =
-            list_string +
+          list_arr.push(
             flags[current_rates[index].currency] +
-            " is " +
-            current_rates[index].current_rate +
-            " " +
-            current_rates[index].currency +
-            (percent_change >= 0 ? "🔺by " : "🔻by ") +
-            Math.abs(percent_change) +
-            "%" +
-            "\n";
+              " is " +
+              current_rates[index].current_rate +
+              " " +
+              current_rates[index].currency +
+              (percent_change >= 0 ? "🔺by " : "🔻by ") +
+              Math.abs(percent_change) +
+              "%"
+          );
         });
-        list_string = list_string + "#forex";
-        tweet(list_string, [
+        for (let i = 0; i < list_arr.length; i++) {
+          if (i < 7) {
+            first_list = first_list + list_arr[i] + "\n";
+          }
+          if (i >= 7 && i < 17) {
+            second_list = second_list + list_arr[i] + "\n";
+          }
+          if (i >= 17 && i < 27) {
+            third_list = third_list + list_arr[i] + "\n";
+          }
+          if (i >= 27 && i < 32) {
+            fourth_list = fourth_list + list_arr[i] + "\n";
+          }
+        }
+        first_list = tweet_txt + first_list + "#forex";
+        second_list = ter_tweet + "\n" + second_list + sec_tweet_txt;
+        third_list = ter_tweet + "\n" + third_list + sec_tweet_txt;
+        fourth_list = ter_tweet + "\n" + fourth_list + sec_tweet_txt;
+        tweet(first_list, [
+          second_list,
+          third_list,
+          fourth_list,
           ria_remit_msg,
           remitly_remint_msg,
           transfer_wise_msg,
