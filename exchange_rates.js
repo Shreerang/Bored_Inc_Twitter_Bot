@@ -100,7 +100,7 @@ if (new Date().getDay() !== 0 && new Date().getDay() !== 6) {
       let fourth_list = "";
       let tweet_txt =
         "Today's #currency #exchangerates in comparison to yesterday against the US #dollar:\n";
-      let sec_tweet_txt = "#forex #ForexMarket #Currency";
+      let sec_tweet_txt = "#forex #ForexMarket";
       let ter_tweet = "🤑💰💱💹";
       let promises = [];
       let current_rates = [];
