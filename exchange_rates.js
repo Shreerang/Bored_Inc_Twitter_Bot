@@ -98,9 +98,10 @@ if (new Date().getDay() !== 0 && new Date().getDay() !== 6) {
       let second_list = "";
       let third_list = "";
       let fourth_list = "";
+      let fiveth_list = "";
       let tweet_txt =
         "Today's #currency #exchangerates in comparison to yesterday against the US #dollar:\n";
-      let sec_tweet_txt = "#forex #ForexMarket";
+      let sec_tweet_txt = "#forex #forextrading";
       let ter_tweet = "🤑💰💱💹";
       let promises = [];
       let current_rates = [];
@@ -137,24 +138,29 @@ if (new Date().getDay() !== 0 && new Date().getDay() !== 6) {
           if (i < 7) {
             first_list = first_list + list_arr[i] + "\n";
           }
-          if (i >= 7 && i < 17) {
+          if (i >= 7 && i < 13) {
             second_list = second_list + list_arr[i] + "\n";
           }
-          if (i >= 17 && i < 27) {
+          if (i >= 13 && i < 19) {
             third_list = third_list + list_arr[i] + "\n";
           }
-          if (i >= 27 && i < 32) {
+          if (i >= 19 && i < 25) {
             fourth_list = fourth_list + list_arr[i] + "\n";
+          }
+          if (i >= 25 && i < 33) {
+            fiveth_list = fiveth_list + list_arr[i] + "\n";
           }
         }
         first_list = tweet_txt + first_list + "#forex";
         second_list = ter_tweet + "\n" + second_list + sec_tweet_txt;
         third_list = ter_tweet + "\n" + third_list + sec_tweet_txt;
         fourth_list = ter_tweet + "\n" + fourth_list + sec_tweet_txt;
+        fiveth_list = ter_tweet + "\n" + fiveth_list + sec_tweet_txt;
         tweet(first_list, [
           second_list,
           third_list,
           fourth_list,
+          fiveth_list,
           ria_remit_msg,
           remitly_remint_msg,
           transfer_wise_msg,
