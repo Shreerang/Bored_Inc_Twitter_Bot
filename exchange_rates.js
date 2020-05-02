@@ -48,39 +48,138 @@ const current_date =
   yesterday.getDate();
 
 const flags = {
-  INR: "🇮🇳",
-  CNY: "🇨🇳",
-  MXN: "🇲🇽",
-  PHP: "🇵🇭",
-  EUR: "🇪🇺",
-  CAD: "🇨🇦",
-  JPY: "🇯🇵",
-  HKD: "🇭🇰",
-  ISK: "🇮🇸",
-  DKK: "🇩🇰",
-  HUF: "🇭🇺",
-  CZK: "🇨🇿",
-  GBP: "🇬🇧",
-  RON: "🇷🇴",
-  SEK: "🇸🇪",
-  IDR: "🇮🇩",
-  BRL: "🇧🇷",
-  RUB: "🇷🇺",
-  HRK: "🇭🇷",
-  THB: "🇹🇭",
-  CHF: "🇨🇭",
-  MYR: "🇲🇾",
-  BGN: "🇧🇬",
-  TRY: "🇹🇷",
-  NOK: "🇳🇴",
-  NZD: "🇳🇿",
-  ZAR: "🇿🇦",
-  SGD: "🇸🇬",
-  AUD: "🇦🇺",
-  ILS: "🇮🇱",
-  KRW: "🇰🇷",
-  PLN: "🇵🇱",
-  USD: "🇺🇸",
+  INR: {
+    flag: "🇮🇳",
+    symbol: "₹",
+  },
+  CNY: {
+    flag: "🇨🇳",
+    symbol: "¥",
+  },
+  MXN: {
+    flag: "🇲🇽",
+    symbol: "$",
+  },
+  PHP: {
+    flag: "🇵🇭",
+    symbol: "₱",
+  },
+  EUR: {
+    flag: "🇪🇺",
+    symbol: "€",
+  },
+  CAD: {
+    flag: "🇨🇦",
+    symbol: "$",
+  },
+  JPY: {
+    flag: "🇯🇵",
+    symbol: "¥",
+  },
+  HKD: {
+    flag: "🇭🇰",
+    symbol: "	$",
+  },
+  ISK: {
+    flag: "🇮🇸",
+    symbol: "kr",
+  },
+  DKK: {
+    flag: "🇩🇰",
+    symbol: "kr",
+  },
+  HUF: {
+    flag: "🇭🇺",
+    symbol: "Ft",
+  },
+  CZK: {
+    flag: "🇨🇿",
+    symbol: "Kč",
+  },
+  GBP: {
+    flag: "🇬🇧",
+    symbol: "£",
+  },
+  RON: {
+    flag: "🇷🇴",
+    symbol: "lei",
+  },
+  SEK: {
+    flag: "🇸🇪",
+    symbol: "kr",
+  },
+  IDR: {
+    flag: "🇮🇩",
+    symbol: "Rp",
+  },
+  BRL: {
+    flag: "🇧🇷",
+    symbol: "R$",
+  },
+  RUB: {
+    flag: "🇷🇺",
+    symbol: "₽",
+  },
+  HRK: {
+    flag: "🇭🇷",
+    symbol: "kn",
+  },
+  THB: {
+    flag: "🇹🇭",
+    symbol: "฿",
+  },
+  CHF: {
+    flag: "🇨🇭",
+    symbol: "CHF",
+  },
+  MYR: {
+    flag: "🇲🇾",
+    symbol: "RM",
+  },
+  BGN: {
+    flag: "🇧🇬",
+    symbol: "лв",
+  },
+  TRY: {
+    flag: "🇹🇷",
+    symbol: "₺",
+  },
+  NOK: {
+    flag: "🇳🇴",
+    symbol: "kr",
+  },
+  NZD: {
+    flag: "🇳🇿",
+    symbol: "$",
+  },
+  ZAR: {
+    flag: "🇿🇦",
+    symbol: "R",
+  },
+  SGD: {
+    flag: "🇸🇬",
+    symbol: "$",
+  },
+  AUD: {
+    flag: "🇦🇺",
+    symbol: "$",
+  },
+  ILS: {
+    flag: "🇮🇱",
+    symbol: "₪",
+  },
+  KRW: {
+    flag: "🇰🇷",
+    symbol: "₩",
+  },
+  PLN: {
+    flag: "🇵🇱",
+    symbol: "zł",
+  },
+  USD: {
+    flag: "🇺🇸",
+    symbol: "$",
+  },
 };
 
 function getPercentageChange(oldNumber, newNumber) {
@@ -124,11 +223,10 @@ if (new Date().getDay() !== 0 && new Date().getDay() !== 6) {
             response.data.rates[Object.keys(response.data.rates)[0]].toFixed(2)
           );
           list_arr.push(
-            flags[current_rates[index].currency] +
+            flags[current_rates[index].currency].flag +
               " is " +
+              flags[current_rates[index].currency].symbol +
               current_rates[index].current_rate +
-              " " +
-              current_rates[index].currency +
               (percent_change >= 0 ? "🔺by " : "🔻by ") +
               Math.abs(percent_change) +
               "%"
