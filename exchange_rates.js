@@ -198,6 +198,7 @@ if (new Date().getDay() !== 0 && new Date().getDay() !== 6) {
       let third_list = "";
       let fourth_list = "";
       let fiveth_list = "";
+      let sixth_list = "";
       let tweet_txt =
         "Today's #currency #exchangerates in comparison to yesterday against the US #dollar:\n";
       let sec_tweet_txt = "#forex #forextrading";
@@ -229,31 +230,37 @@ if (new Date().getDay() !== 0 && new Date().getDay() !== 6) {
               current_rates[index].current_rate +
               (percent_change >= 0 ? "🔺by " : "🔻by ") +
               Math.abs(percent_change) +
-              "%"
+              "%" +
+              " $USD" +
+              current_rates[index].currency
           );
         });
         for (let i = 0; i < list_arr.length; i++) {
-          if (i < 7) {
+          if (i < 6) {
             first_list = first_list + list_arr[i] + "\n";
           }
-          if (i >= 7 && i < 13) {
+          if (i >= 6 && i < 12) {
             second_list = second_list + list_arr[i] + "\n";
           }
-          if (i >= 13 && i < 19) {
+          if (i >= 12 && i < 17) {
             third_list = third_list + list_arr[i] + "\n";
           }
-          if (i >= 19 && i < 25) {
+          if (i >= 17 && i < 22) {
             fourth_list = fourth_list + list_arr[i] + "\n";
           }
-          if (i >= 25 && i < 33) {
+          if (i >= 22 && i < 27) {
             fiveth_list = fiveth_list + list_arr[i] + "\n";
+          }
+          if (i >= 27 && i < 32) {
+            sixth_list = sixth_list + list_arr[i] + "\n";
           }
         }
         first_list = tweet_txt + first_list + "#forex";
-        second_list = ter_tweet + "\n" + second_list + sec_tweet_txt;
-        third_list = ter_tweet + "\n" + third_list + sec_tweet_txt;
-        fourth_list = ter_tweet + "\n" + fourth_list + sec_tweet_txt;
-        fiveth_list = ter_tweet + "\n" + fiveth_list + sec_tweet_txt;
+        second_list = ter_tweet + "\n\n" + second_list + "\n" + sec_tweet_txt;
+        third_list = ter_tweet + "\n\n" + third_list + "\n" + sec_tweet_txt;
+        fourth_list = ter_tweet + "\n\n" + fourth_list + "\n" + sec_tweet_txt;
+        fiveth_list = ter_tweet + "\n\n" + fiveth_list + "\n" + sec_tweet_txt;
+        sixth_list = ter_tweet + "\n\n" + sixth_list + "\n" + sec_tweet_txt;
         tweet(first_list, [
           second_list,
           third_list,
