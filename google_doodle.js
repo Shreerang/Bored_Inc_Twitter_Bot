@@ -9,7 +9,7 @@ const T = new Twit({
   consumer_secret: process.env.consumer_secret,
   access_token: process.env.access_token,
   access_token_secret: process.env.access_token_secret,
-  timeout_ms: 60 * 1000
+  timeout_ms: 60 * 1000,
 });
 
 const current_date =
@@ -24,12 +24,12 @@ const day_based_hashtag = {
   3: "#WednesdayWisdom",
   4: "#ThursdayThoughts",
   5: "#FridayFeeling",
-  6: "#SundayFunday #weekendvibes #WeekendKaVaar"
+  6: "#SundayFunday #weekendvibes #WeekendKaVaar",
 };
 
 axios
   .get(url)
-  .then(function(response) {
+  .then(function (response) {
     const data = response.data;
     let doodles_arr = [];
     if (data.length >= 1) {
@@ -64,7 +64,7 @@ axios
         );
         const b64content = fs.readFileSync(img_path, { encoding: "base64" });
 
-        T.post("media/upload", { media_data: b64content }, function(
+        T.post("media/upload", { media_data: b64content }, function (
           err,
           data,
           response
@@ -73,10 +73,10 @@ axios
           var altText = doodles_arr[j].title;
           var meta_params = {
             media_id: mediaIdStr,
-            alt_text: { text: altText }
+            alt_text: { text: altText },
           };
 
-          T.post("media/metadata/create", meta_params, function(
+          T.post("media/metadata/create", meta_params, function (
             err,
             data,
             response
@@ -84,10 +84,10 @@ axios
             if (!err) {
               var params = {
                 status: tweet_msg.substring(0, 240),
-                media_ids: [mediaIdStr]
+                media_ids: [mediaIdStr],
               };
 
-              T.post("statuses/update", params, function(err, data, response) {
+              T.post("statuses/update", params, function (err, data, response) {
                 // console.log(data)
               });
             }
@@ -96,7 +96,7 @@ axios
       });
     }
   })
-  .catch(function(error) {
+  .catch(function (error) {
     console.log(error);
   });
 
@@ -108,7 +108,7 @@ async function downloadImage(image_path, img_num) {
   const response = await axios({
     url,
     method: "GET",
-    responseType: "stream"
+    responseType: "stream",
   });
 
   response.data.pipe(writer);
