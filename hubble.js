@@ -36,6 +36,7 @@ const T = new Twit({
 axios
   .get("http://hubblesite.org/api/v3/image/" + day)
   .then(function (response) {
+    process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
     hubble_img = response.data.image_files
       ? response.data.image_files[
           response.data.image_files.length - 1
