@@ -5,10 +5,9 @@ const fs = require("fs");
 const Path = require("path");
 const tweet = require("./image_thread.js");
 
-const current_hour = new Date().getHours();
 const random_image = randomNumber(0, 6);
-let tourism_img = "";
-let tourism_img_title = "";
+let quote_img = "";
+let quote_img_title = "";
 
 const tourism_countries = [
   "buddha",
@@ -22,7 +21,7 @@ const tourism_countries = [
 
 const day_based_hashtag = {
   0: "#SundayFunday #weekendvibes #WeekendKaVaar",
-  1: "#MondayVibes",
+  1: "#MondayVibes #MotivationMonday",
   2: "#TuesdayThoughts",
   3: "#WednesdayWisdom #WallpaperWednesday",
   4: "#ThursdayThoughts",
@@ -44,7 +43,8 @@ axios
       "https://api.unsplash.com/photos/random?client_id=" +
         process.env.unsplash_access_key +
         "&query='" +
-        tourism_countries[random_image]
+        tourism_countries[random_image] +
+        "&featured=true"
     ),
     axios.get("https://zenquotes.io/api/today"),
   ])
@@ -53,13 +53,13 @@ axios
       const response = responses[0];
       const quote = responses[1];
 
-      tourism_img = response.data
+      quote_img = response.data
         ? response.data.links.download
         : response.data.links.download_location;
-      tourism_img_title = response.data.description
+      quote_img_title = response.data.description
         ? response.data.description
         : quote.data[0].q;
-      tourism_img_credit =
+      quote_img_credit =
         "Photograph by: " +
         (response.data.user.twitter_username
           ? "@" + response.data.user.twitter_username
@@ -75,9 +75,15 @@ axios
             response.data.user.portfolio_url
           : ".");
       zen_tweet =
-        quote.data[0].q + " — " + quote.data[0].a + "\n\n" + tourism_img_credit;
-      day_based_hashtag[new Date().getDay()];
-      downloadImage(tourism_img).then(() => {
+        quote.data[0].q +
+        " — " +
+        quote.data[0].a +
+        "\n\n" +
+        "#LifeLessons #LifeStyle #Motivation #quotesoftheday #ThoughtForTheDay " +
+        day_based_hashtag[new Date().getDay()] +
+        "\n\n" +
+        quote_img_credit;
+      downloadImage(quote_img).then(() => {
         const img_path = Path.resolve(__dirname, "images", "img.jpg");
         const b64content = fs.readFileSync(img_path, { encoding: "base64" });
 
@@ -87,7 +93,7 @@ axios
           response
         ) {
           var mediaIdStr = data.media_id_string;
-          var altText = tourism_img_title;
+          var altText = quote_img_title;
           var meta_params = {
             media_id: mediaIdStr,
             alt_text: { text: altText },
