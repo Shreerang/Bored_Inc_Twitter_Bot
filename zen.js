@@ -44,7 +44,7 @@ axios
         process.env.unsplash_access_key +
         "&query='" +
         tourism_countries[random_image] +
-        "&featured=true"
+        "'&featured=true"
     ),
     axios.get("https://zenquotes.io/api/today"),
   ])
