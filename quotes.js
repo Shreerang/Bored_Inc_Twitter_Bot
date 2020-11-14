@@ -19,6 +19,15 @@ const tourism_countries = [
   "buddha",
 ];
 
+const now = new Date();
+const start = new Date(now.getFullYear(), 0, 0);
+const diff = now - start;
+const oneDay = 1000 * 60 * 60 * 24;
+const day = Math.floor(diff / oneDay);
+
+let quotesData = fs.readFileSync("quotes.json");
+let quotes = JSON.parse(quotesData);
+
 const day_based_hashtag = {
   0: "#SundayFunday #weekendvibes #WeekendKaVaar",
   1: "#MondayVibes #MotivationMonday",
@@ -46,19 +55,17 @@ axios
         tourism_countries[random_image] +
         "'&featured=true"
     ),
-    axios.get("https://zenquotes.io/api/today"),
   ])
   .then(
     axios.spread((...responses) => {
       const response = responses[0];
-      const quote = responses[1];
 
       quote_img = response.data
         ? response.data.links.download
         : response.data.links.download_location;
       quote_img_title = response.data.description
         ? response.data.description
-        : quote.data[0].q;
+        : quotes[day].text;
       quote_img_credit =
         "Photograph by: " +
         (response.data.user.twitter_username
@@ -69,9 +76,9 @@ axios
             " " +
             (response.data.user.last_name ? response.data.user.last_name : ""));
       zen_tweet =
-        quote.data[0].q +
+        quotes[day].text +
         " — " +
-        quote.data[0].a +
+        quotes[day].author +
         "\n\n" +
         "#LifeLessons #LifeStyle #Motivation #quotesoftheday #ThoughtForTheDay " +
         day_based_hashtag[new Date().getDay()] +
