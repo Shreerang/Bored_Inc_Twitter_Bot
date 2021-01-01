@@ -52,7 +52,7 @@ axios
       "\n" +
       nat_geo_img_credit +
       "\n" +
-      " #NationalGeographic #Photograph #photography #Photos #photo #Explore #wallpaper " +
+      " #NationalGeographic #Photograph #photography #Photos #photo #Explore #wallpaper #DidYouKNow #DYK" +
       day_based_hashtag[new Date().getDay()];
     nat_geo_explanation = response.data.items[0].items
       ? response.data.items[0].items[day].caption
@@ -61,34 +61,37 @@ axios
       const img_path = Path.resolve(__dirname, "images", "img.jpg");
       const b64content = fs.readFileSync(img_path, { encoding: "base64" });
 
-      T.post("media/upload", { media_data: b64content }, function (
-        err,
-        data,
-        response
-      ) {
-        var mediaIdStr = data.media_id_string;
-        var altText = nat_geo_img_title;
-        var meta_params = { media_id: mediaIdStr, alt_text: { text: altText } };
+      T.post(
+        "media/upload",
+        { media_data: b64content },
+        function (err, data, response) {
+          var mediaIdStr = data.media_id_string;
+          var altText = nat_geo_img_title;
+          var meta_params = {
+            media_id: mediaIdStr,
+            alt_text: { text: altText },
+          };
 
-        T.post("media/metadata/create", meta_params, function (
-          err,
-          data,
-          response
-        ) {
-          if (!err) {
-            var params = {
-              status: nat_geo_img_title.substring(0, 280),
-              media_ids: [mediaIdStr],
-            };
-            tweet(
-              params,
-              nat_geo_explanation
-                .replace(/(<([^>]+)>)/gi, "")
-                .match(/.{1,280}/g)
-            );
-          }
-        });
-      });
+          T.post(
+            "media/metadata/create",
+            meta_params,
+            function (err, data, response) {
+              if (!err) {
+                var params = {
+                  status: nat_geo_img_title.substring(0, 280),
+                  media_ids: [mediaIdStr],
+                };
+                tweet(
+                  params,
+                  nat_geo_explanation
+                    .replace(/(<([^>]+)>)/gi, "")
+                    .match(/.{1,280}/g)
+                );
+              }
+            }
+          );
+        }
+      );
     });
   })
   .catch(function (error) {

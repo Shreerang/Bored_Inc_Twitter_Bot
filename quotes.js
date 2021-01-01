@@ -80,7 +80,7 @@ axios
         " — " +
         quotes[day].author +
         "\n\n" +
-        "#LifeLessons #LifeStyle #Motivation #quotesoftheday #ThoughtForTheDay " +
+        "#LifeLessons #LifeStyle #Motivation #DidYouKnow #DYK #quotesoftheday #ThoughtForTheDay " +
         day_based_hashtag[new Date().getDay()] +
         "\n\n" +
         quote_img_credit;
@@ -88,32 +88,32 @@ axios
         const img_path = Path.resolve(__dirname, "images", "img.jpg");
         const b64content = fs.readFileSync(img_path, { encoding: "base64" });
 
-        T.post("media/upload", { media_data: b64content }, function (
-          err,
-          data,
-          response
-        ) {
-          var mediaIdStr = data.media_id_string;
-          var altText = quote_img_title;
-          var meta_params = {
-            media_id: mediaIdStr,
-            alt_text: { text: altText },
-          };
+        T.post(
+          "media/upload",
+          { media_data: b64content },
+          function (err, data, response) {
+            var mediaIdStr = data.media_id_string;
+            var altText = quote_img_title;
+            var meta_params = {
+              media_id: mediaIdStr,
+              alt_text: { text: altText },
+            };
 
-          T.post("media/metadata/create", meta_params, function (
-            err,
-            data,
-            response
-          ) {
-            if (!err) {
-              var params = {
-                status: zen_tweet.substring(0, 280),
-                media_ids: [mediaIdStr],
-              };
-              tweet(params);
-            }
-          });
-        });
+            T.post(
+              "media/metadata/create",
+              meta_params,
+              function (err, data, response) {
+                if (!err) {
+                  var params = {
+                    status: zen_tweet.substring(0, 280),
+                    media_ids: [mediaIdStr],
+                  };
+                  tweet(params);
+                }
+              }
+            );
+          }
+        );
       });
     })
   )

@@ -52,7 +52,7 @@ axios
     hubble_img_title =
       hubble_img_title +
       "\n" +
-      " #Hubble30 #Hubble #space #SpaceForce #NASA #Photograph #photography #NASAatHome #Explore #wallpaper " +
+      " #Hubble30 #Hubble #space #SpaceForce #NASA #DidYouKnow #DYK #Photograph #photography #NASAatHome #Explore #wallpaper " +
       day_based_hashtag[new Date().getDay()];
     hubble_explanation = response.data.description
       ? response.data.description
@@ -61,32 +61,37 @@ axios
       const img_path = Path.resolve(__dirname, "images", "img.jpg");
       const b64content = fs.readFileSync(img_path, { encoding: "base64" });
 
-      T.post("media/upload", { media_data: b64content }, function (
-        err,
-        data,
-        response
-      ) {
-        var mediaIdStr = data.media_id_string;
-        var altText = hubble_img_title;
-        var meta_params = { media_id: mediaIdStr, alt_text: { text: altText } };
+      T.post(
+        "media/upload",
+        { media_data: b64content },
+        function (err, data, response) {
+          var mediaIdStr = data.media_id_string;
+          var altText = hubble_img_title;
+          var meta_params = {
+            media_id: mediaIdStr,
+            alt_text: { text: altText },
+          };
 
-        T.post("media/metadata/create", meta_params, function (
-          err,
-          data,
-          response
-        ) {
-          if (!err) {
-            var params = {
-              status: hubble_img_title.substring(0, 280),
-              media_ids: [mediaIdStr],
-            };
-            tweet(
-              params,
-              hubble_explanation.replace(/(<([^>]+)>)/gi, "").match(/.{1,280}/g)
-            );
-          }
-        });
-      });
+          T.post(
+            "media/metadata/create",
+            meta_params,
+            function (err, data, response) {
+              if (!err) {
+                var params = {
+                  status: hubble_img_title.substring(0, 280),
+                  media_ids: [mediaIdStr],
+                };
+                tweet(
+                  params,
+                  hubble_explanation
+                    .replace(/(<([^>]+)>)/gi, "")
+                    .match(/.{1,280}/g)
+                );
+              }
+            }
+          );
+        }
+      );
     });
   })
   .catch(function (error) {

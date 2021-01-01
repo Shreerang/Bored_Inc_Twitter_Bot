@@ -7,7 +7,7 @@ const T = new Twit({
   consumer_secret: process.env.consumer_secret,
   access_token: process.env.access_token,
   access_token_secret: process.env.access_token_secret,
-  timeout_ms: 60 * 1000
+  timeout_ms: 60 * 1000,
 });
 
 const now = new Date();
@@ -23,12 +23,12 @@ const day_based_hashtag = {
   3: "#WednesdayWisdom",
   4: "#ThursdayThoughts",
   5: "#FridayFeeling",
-  6: "#SundayFunday #weekendvibes #WeekendKaVaar"
+  6: "#SundayFunday #weekendvibes #WeekendKaVaar",
 };
 
 axios
   .get("http://numbersapi.com/" + day)
-  .then(function(response) {
+  .then(function (response) {
     let status_msg =
       "📌Day " +
       day +
@@ -38,15 +38,15 @@ axios
       response.data +
       " 🧐💯\n" +
       day_based_hashtag[new Date().getDay()] +
-      " #Numerology #Numbers #TodayShow #math";
+      " #Numerology #Numbers #DidYouKnow #DYK #TodayShow #math";
     T.post(
       "statuses/update",
       { status: status_msg.substring(0, 280) },
-      function(err, data, response) {
+      function (err, data, response) {
         // console.log(data)
       }
     );
   })
-  .catch(function(error) {
+  .catch(function (error) {
     console.log(error);
   });
