@@ -52,7 +52,7 @@ axios
       "\n" +
       nat_geo_img_credit +
       "\n" +
-      " #NationalGeographic #Photograph #photography #Photos #photo #Explore #wallpaper #DidYouKNow #DYK" +
+      " #NationalGeographic #Photograph #photography #Photos #photo #Explore #wallpaper #DidYouKNow #DYK " +
       day_based_hashtag[new Date().getDay()];
     nat_geo_explanation = response.data.items[0].items
       ? response.data.items[0].items[day].caption

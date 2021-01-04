@@ -38,7 +38,6 @@ axios
     "https://www.nationalgeographic.com/photography/proof/2017/04/39-photos-of-animals-in-action/_jcr_content/presentation-mode.pres.json"
   )
   .then(function (response) {
-    day = 0;
     nat_geo_img = response.data.items[0].items
       ? response.data.items[0].items[day].url
       : "";
