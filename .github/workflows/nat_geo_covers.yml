@@ -2,7 +2,7 @@ name: National Geographic Covers
 
 on:
   schedule:
-    - cron: '00 02 * * *'
+    - cron: '30 01 * * *'
   workflow_dispatch:
 
 jobs:
