@@ -2,7 +2,7 @@ name: Google Doodle
 
 on:
   schedule:
-    - cron: '00 18 * * *'
+    - cron: '15 19 * * *'
   workflow_dispatch:
 
 jobs:
@@ -16,7 +16,6 @@ jobs:
       - name: Tweet Google Doodle
         run: |
           npm ci
-          echo ${CONSUMER_KEY}
           node google_doodle.js
         env:
           CI: true
