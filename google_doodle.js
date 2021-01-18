@@ -1,4 +1,4 @@
-require("dotenv").config({systemvars: true});
+require("dotenv").config();
 const Twit = require("twit");
 const axios = require("axios");
 const fs = require("fs");
