@@ -2,7 +2,7 @@ name: Google Doodle
 
 on:
   schedule:
-    - cron: '30 16 * * *'
+    - cron: '00 18 * * *'
   workflow_dispatch:
 
 jobs:
