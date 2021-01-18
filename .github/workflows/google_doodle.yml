@@ -16,9 +16,10 @@ jobs:
       - name: Install Node modules
         run: npm i
       - name: Tweet message
+        run: |
+          node google_doodle.js
         env:
           CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
           CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
-       run: node google_doodle.js
