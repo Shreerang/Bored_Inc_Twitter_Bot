@@ -1,0 +1,25 @@
+name: National Geographic Animals
+
+on:
+  schedule:
+    - cron: '00 01 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2.3.4
+      - name: Setup Node.js
+        uses: actions/setup-node@v2.1.4
+      - name: Tweet Nat Geo Animals
+        run: |
+          npm ci
+          node nat_geo_animals.js
+        env:
+          CI: true
+          CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+          CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
