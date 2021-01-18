@@ -15,7 +15,7 @@ jobs:
         uses: actions/setup-node@v2.1.4
       - name: Tweet Google Doodle
         run: |
-          npm i
+          npm ci
           node google_doodle.js
         env:
           CI: true
