@@ -18,6 +18,7 @@ jobs:
           CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+        run: export
       - run: npm ci
       - run: npm config set consumer_key=${CONSUMER_KEY}
       - run: node google_doodle.js
