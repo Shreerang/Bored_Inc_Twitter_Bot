@@ -4,6 +4,9 @@ const axios = require("axios");
 const fs = require("fs");
 const Path = require("path");
 
+console.log(process.env)
+console.log(env)
+
 const T = new Twit({
   consumer_key: process.env.consumer_key,
   consumer_secret: process.env.consumer_secret,

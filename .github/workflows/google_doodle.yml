@@ -16,6 +16,7 @@ jobs:
       - name: Tweet Google Doodle
         run: |
           npm ci
+          echo ${CONSUMER_KEY}
           node google_doodle.js
         env:
           CI: true
