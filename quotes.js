@@ -39,10 +39,10 @@ const day_based_hashtag = {
 };
 
 const T = new Twit({
-  consumer_key: process.env.consumer_key,
-  consumer_secret: process.env.consumer_secret,
-  access_token: process.env.access_token,
-  access_token_secret: process.env.access_token_secret,
+  consumer_key: process.env.CONSUMER_KEY,
+  consumer_secret: process.env.CONSUMER_SECRET,
+  access_token: process.env.ACCESS_TOKEN,
+  access_token_secret: process.env.ACCESS_TOKEN_SECRET,
   timeout_ms: 60 * 1000,
 });
 
@@ -50,7 +50,7 @@ axios
   .all([
     axios.get(
       "https://api.unsplash.com/photos/random?client_id=" +
-        process.env.unsplash_access_key +
+        process.env.UNSPLASH_ACCESS_KEY +
         "&query='" +
         tourism_countries[random_image] +
         "'&featured=true"
@@ -63,9 +63,11 @@ axios
       quote_img = response.data
         ? response.data.links.download
         : response.data.links.download_location;
+      
       quote_img_title = response.data.description
         ? response.data.description
         : quotes[day].text;
+      
       quote_img_credit =
         "Photograph by: " +
         (response.data.user.twitter_username
@@ -77,8 +79,9 @@ axios
             (response.data.user.last_name ? response.data.user.last_name : ""));
       zen_tweet =
         quotes[day].text +
-        " — " +
-        quotes[day].author +
+        quotes[day].author !== "null" ? 
+        (" — " +
+        quotes[day].author) : "" +
         "\n\n" +
         "#LifeLessons #LifeStyle #Motivation #DidYouKnow #DYK #quotesoftheday #ThoughtForTheDay " +
         day_based_hashtag[new Date().getDay()] +
