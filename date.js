@@ -24,19 +24,21 @@ const day_based_hashtag = {
 };
 
 axios
-  .get("http://numbersapi.com/" + current_date + "/date")
+  .get("http://history.muffinlabs.com/date" + current_date)
   .then(function (response) {
-    let status_msg =
-      response.data +
-      "\n#OnThisDay 📅 #DidYouKnow #DYK #date #Trivia 👌🏻 #numbers #interestingfacts 🤔 #Facts 💭 #interesting #KnowTheFacts #Facts #FactsMatter #TodayInHistory " +
-      day_based_hashtag[new Date().getDay()];
-    T.post(
-      "statuses/update",
-      { status: status_msg.substring(0, 280) },
-      function (err, data, response) {
-        // console.log(data)
-      }
-    );
+    if(response.data.data.Events) {
+      let status_msg =
+        response.data.data.Events[0].text + " in the year " + response.data.data.Events[0].year +
+        "\n#OnThisDay 📅 #DidYouKnow #DYK #date #Trivia 👌🏻 #numbers #interestingfacts 🤔 #Facts 💭 #interesting #KnowTheFacts #Facts #FactsMatter #TodayInHistory " +
+        day_based_hashtag[new Date().getDay()];
+      T.post(
+        "statuses/update",
+        { status: status_msg.substring(0, 280) },
+        function (err, data, response) {
+          // console.log(data)
+        }
+      );
+    }
   })
   .catch(function (error) {
     console.log(error);
