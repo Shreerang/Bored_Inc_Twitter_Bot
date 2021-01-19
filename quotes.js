@@ -79,9 +79,8 @@ axios
             (response.data.user.last_name ? response.data.user.last_name : ""));
       zen_tweet =
         quotes[day].text +
-        quotes[day].author !== "null" ? 
-        (" — " +
-        quotes[day].author) : "" +
+        " — " +
+        quotes[day].author +
         "\n\n" +
         "#LifeLessons #LifeStyle #Motivation #DidYouKnow #DYK #quotesoftheday #ThoughtForTheDay " +
         day_based_hashtag[new Date().getDay()] +
