@@ -24,11 +24,11 @@ const day_based_hashtag = {
 };
 
 axios
-  .get("http://history.muffinlabs.com/date" + current_date)
+  .get("http://history.muffinlabs.com/date/" + current_date)
   .then(function (response) {
     if(response.data.data.Events) {
       let status_msg =
-        response.data.data.Events[0].text + " in the year " + response.data.data.Events[0].year +
+      "In the year " + response.data.data.Events[0].year + " , " + response.data.data.Events[0].text + 
         "\n#OnThisDay 📅 #DidYouKnow #DYK #date #Trivia 👌🏻 #numbers #interestingfacts 🤔 #Facts 💭 #interesting #KnowTheFacts #Facts #FactsMatter #TodayInHistory " +
         day_based_hashtag[new Date().getDay()];
       T.post(
