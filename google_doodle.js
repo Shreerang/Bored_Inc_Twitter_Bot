@@ -65,41 +65,39 @@ axios
         );
         const b64content = fs.readFileSync(img_path, { encoding: "base64" });
 
-        console.log(tweet_msg)
+        T.post(
+          "media/upload",
+          { media_data: b64content },
+          function (err, data, response) {
+            var mediaIdStr = data.media_id_string;
+            var altText = doodles_arr[j].title;
+            var meta_params = {
+              media_id: mediaIdStr,
+              alt_text: { text: altText },
+            };
 
-        // T.post(
-        //   "media/upload",
-        //   { media_data: b64content },
-        //   function (err, data, response) {
-        //     var mediaIdStr = data.media_id_string;
-        //     var altText = doodles_arr[j].title;
-        //     var meta_params = {
-        //       media_id: mediaIdStr,
-        //       alt_text: { text: altText },
-        //     };
+            T.post(
+              "media/metadata/create",
+              meta_params,
+              function (err, data, response) {
+                if (!err) {
+                  var params = {
+                    status: tweet_msg.substring(0, 240),
+                    media_ids: [mediaIdStr],
+                  };
 
-        //     T.post(
-        //       "media/metadata/create",
-        //       meta_params,
-        //       function (err, data, response) {
-        //         if (!err) {
-        //           var params = {
-        //             status: tweet_msg.substring(0, 240),
-        //             media_ids: [mediaIdStr],
-        //           };
-
-        //           T.post(
-        //             "statuses/update",
-        //             params,
-        //             function (err, data, response) {
-        //               // console.log(data)
-        //             }
-        //           );
-        //         }
-        //       }
-        //     );
-        //   }
-        // );
+                  T.post(
+                    "statuses/update",
+                    params,
+                    function (err, data, response) {
+                      // console.log(data)
+                    }
+                  );
+                }
+              }
+            );
+          }
+        );
       });
     }
   })
