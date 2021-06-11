@@ -10,13 +10,11 @@ let quote_img = "";
 let quote_img_title = "";
 
 const tourism_countries = [
-  "buddha",
-  "zen",
-  "buddha",
   "calm",
-  "buddha",
-  "peace",
-  "buddha",
+  "trees",
+  "sunrise",
+  "sunset",
+  "paint"
 ];
 
 const day_based_hashtag = {
