@@ -10,8 +10,8 @@
   "author": "Shreerang Patwardhan",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.1",
-    "plotly.js": "^1.57.1",
+    "axios": "^0.21.4",
+    "plotly.js": "^2.20.0",
     "puppeteer": "^2.1.1",
     "twit": "^2.2.11",
     "twit-thread": "^2.1.0"
